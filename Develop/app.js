@@ -33,3 +33,70 @@ const render = require("./lib/htmlRenderer");
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
+
+const employeeData = [];
+
+
+function createManager(){
+    return inquirer.prompt([
+        {
+            type: "input",
+            name: "officeNumber",
+            message: "What is your manager's office number?",
+        },
+        {
+            type: "checkbox",
+            name: "addMore",
+            message: "Do you want to add more employees?",
+            choices: [
+                "Yes",
+                "No"
+            ]
+        }
+    ]).then(function(data){
+
+        officeNumber = data.officeNumber;
+        const manager = new Manager(name, employeeId, email, officeNumber);
+        teamDataArray.push(manager);
+        
+
+        if(data.addMore[0] === "Yes"){  
+            init();  
+        }
+        else{
+            render(teamDataArray);
+            createHtml()
+        }
+        
+    });
+
+}
+
+
+function createEmployee(){
+    return inquirer.prompt([
+        {
+            type: "input",
+            name: "name",
+            message: "What is this employee's name?"
+        },
+        {
+            type: "input",
+            name: "employeeId",
+            message: "What is this employee's ID?"
+        },
+        {
+            type: "input",
+            name: "email",
+            message: "What is this employee's email?"
+        },
+        {
+            type: "checkbox",
+            name: "role",
+            message: "What is this employee's role?",
+            choices: ["Manager", "Engineer","Intern"]
+        }
+    ])
+};
+
+
